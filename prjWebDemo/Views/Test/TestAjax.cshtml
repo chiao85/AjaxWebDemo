@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewData["Title"] = "TestAjax";
+}
+
+<h1>TestAjax</h1>
+<button id="btn_click">click</button>
+<div id="msgDiv" class="mt-4 p-3">點擊後顯示文字</div>
+@section Scripts{
+<script>
+    const btn = document.querySelector("#btn_click");
+    const div = document.querySelector("#msgDiv");
+
+    btn.addEventListener("click",()=>{
+
+        //步驟一:建立Ajax物件
+       let xhr = new XMLHttpRequest();
+
+       //步驟三:傳回資料
+       xhr.addEventListener("load",function(){
+
+           //接收資料
+           let data = xhr.responseText;
+           //顯示資料
+           div.innerHTML = `<h5>${data}</h5>`;
+       })
+
+       //步驟二
+       xhr.open("GET","/Test/Index");
+       xhr.send();
+    })
+</script>
+}
