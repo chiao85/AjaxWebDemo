@@ -6,37 +6,41 @@
 	<!-- CSS only -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 	<style>
-		*{
-			margin:5px;
-			box-sizing:border-box;
+		* {
+			margin: 5px;
+			box-sizing: border-box;
 		}
-		a{
-			font-size:10px;
+
+		a {
+			font-size: 10px;
 		}
+
 		.display {
 			display: flex;
 			flex-wrap: wrap;
 			box-sizing: border-box;
 			padding: 15px;
 		}
-		.cardDiv{
-			width:450px;
-			height:200px;
-			margin:15px;
-			text-align:center;
-			padding:10px 0px;
+
+		.cardDiv {
+			width: 450px;
+			height: 200px;
+			margin: 15px;
+			text-align: center;
+			padding: 10px 0px;
 		}
-		.text{
-			font-size:10px;
-			color:gray;
-			
-			text-overflow:ellipsis;
+
+		.text {
+			font-size: 10px;
+			color: gray;
+			text-overflow: ellipsis;
 		}
-		.textDiv{
-			display:-webkit-box;
-			-webkit-box-orient:vertical;
+
+		.textDiv {
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
 			overflow: hidden;
-			-webkit-line-clamp:4;
+			-webkit-line-clamp: 4;
 		}
 	</style>
 
@@ -70,30 +74,23 @@
 
 
 		$.getScript("/js/travel.js", function () {
-			let count = 0;
 			const div = $(".display");
-			
+			let frag = $(document.createDocumentFragment());
 			for (var datas of DATAS) {
-
-				
 				let setCard = "";
 
 				setCard += `<div class="card cardDiv">`;
-				//setCard += `<div class="card - body">`;
-					setCard += `<h5 class="card-title"> ${datas.Name} </h5>`;
-					setCard += `<h6 class="card-subtitle mb-2 text-muted"> ${datas.Add}</h6>`;
+				setCard += `<h5 class="card-title"> ${datas.Name} </h5>`;
+				setCard += `<h6 class="card-subtitle mb-2 text-muted"> ${datas.Add}</h6>`;
 				setCard += `<div class="textDiv">`;
 				setCard += `<p class="text" style="max-length:50"> ${datas.Toldescribe}</p>`;
-					setCard+=`</div>`;
-					setCard += `<a href = "#" class="card-link">${datas.Website} </a>`;
-					setCard += `<a href = "#" class="card-link">${datas.TYWebsite}</a>`;
-					setCard += `</div>`;
-				//setCard += `</div>`;
-
-				div.append(setCard);
-				count++;
+				setCard += `</div>`;
+				setCard += `<a href = "#" class="card-link">${datas.Website} </a>`;
+				setCard += `<a href = "#" class="card-link">${datas.TYWebsite}</a>`;
+				setCard += `</div>`;
+				frag.append(setCard);
 			}
-
+			div.append(frag);
 		});
 
 
