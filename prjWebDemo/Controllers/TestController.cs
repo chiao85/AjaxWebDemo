@@ -5,9 +5,14 @@ namespace prjWebDemo.Controllers
 {
     public class TestController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string name)
         {
-            return Content("Hello Content", "text/plain", Encoding.UTF8);
+            if(string.IsNullOrEmpty(name))
+            {
+                name = "訪客";
+            }
+
+            return Content($"Hello ,{name} !", "text/plain", Encoding.UTF8);
         }
         public ActionResult TestAjax()
         {

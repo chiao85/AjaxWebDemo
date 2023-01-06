@@ -4,29 +4,42 @@
 }
 
 <h1>TestAjax</h1>
+<input type="text" placeholder="輸入暱稱" id="name" />
 <button id="btn_click">click</button>
 <div id="msgDiv" class="mt-4 p-3">點擊後顯示文字</div>
 @section Scripts{
 <script>
     const btn = document.querySelector("#btn_click");
     const div = document.querySelector("#msgDiv");
+    const txt = document.querySelector("#name");
 
-    btn.addEventListener("click",()=>{
-
-        //步驟一:建立Ajax物件
+//步驟一:建立Ajax物件
        let xhr = new XMLHttpRequest();
 
-       //步驟三:傳回資料
+ //步驟三:傳回資料
        xhr.addEventListener("load",function(){
-
            //接收資料
            let data = xhr.responseText;
            //顯示資料
-           div.innerHTML = `<h5>${data}</h5>`;
+           div.innerHTML += `<h5>${data}</h5>`;
        })
 
+            xhr.addEventListener("loadstart", function () {
+                div.innerHTML = `<h5>Ajax開始</h5>`;
+            })
+            xhr.addEventListener("loadend",()=>{
+                div.innerHTML += "<h5>Ajax結束</h5>";
+            })
+
+            xhr.addEventListener("timeout",()=>{
+                div.innerHTML += "<h5>伺服器忙碌中,稍後再試</h5>";
+            })
+
+    btn.addEventListener("click",()=>{
+      
        //步驟二
-       xhr.open("GET","/Test/Index");
+       xhr.open("GET",`/Test/Index/?name=${txt.value}`);
+       xhr.timeout=3000;
        xhr.send();
     })
 </script>
