@@ -61,5 +61,39 @@ namespace prjWebDemo.Controllers
         {
             return View();
         }
+
+        public ActionResult address()
+        {
+            return View();
+        }
+        public ActionResult city()
+        {
+            var cityName = _context.Addresses.Select(c => c.City).Distinct();
+
+            //此city為物件
+            //var cityName = _context.Addresses.Where(c => c.City == city).Select(c => new
+            //{
+            //    c.City
+            //}).Distinct().OrderBy(c=>c.City);
+
+            return Json(cityName);
+        }
+        //以城市名稱讀取鄉鎮
+        public ActionResult site(string city)
+        {
+            var site = _context.Addresses.Where(c => c.City == city).Select(s => s.SiteId).Distinct();
+            return Json(site);
+        }
+        //以鄉鎮名稱讀取路名
+        public ActionResult road(string site)
+        {
+            var road = _context.Addresses.Where(s => s.SiteId == site).Select(r => r.Road).Distinct();
+            return Json(road);
+        }
+
+        public ActionResult fetch()
+        {
+            return View();
+        }
     }
 }

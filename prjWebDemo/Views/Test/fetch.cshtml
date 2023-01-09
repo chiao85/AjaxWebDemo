@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewData["Title"] = "fetch";
+}
+
+<h1>fetch</h1>
+@section Scripts{
+    <script>
+        fetch("/Test/Index").then(response=>response.text()).then(data=>console.log(data)).catch();
+    </script>
+}
