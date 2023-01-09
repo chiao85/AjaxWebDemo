@@ -38,7 +38,9 @@
     btn.addEventListener("click",()=>{
       
        //步驟二
-       xhr.open("GET",`/Test/Index/?name=${txt.value}`);
+       //@Url.Action("Action","Controllers")
+       //@Url.Content("~/Controllers/Action")
+       xhr.open("GET",`@Url.Content("~/Test/Index/?name=${txt.value}")`);
        xhr.timeout=3000;
        xhr.send();
     })

@@ -46,33 +46,10 @@
 
 }
 <h1>桃園觀光景點</h1>
-<div class="display">
-	@*<div class="card" style="width: 18rem;">
-	<div class="card-body">
-	<h5 class="card-title">Card title</h5>
-	<h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-	<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-	<a href="#" class="card-link">Card link</a>
-	<a href="#" class="card-link">Another link</a>
-	</div>
-	</div>
-
-	<div class="card" style="width: 18rem;">
-	<div class="card-body">
-	<h5 class="card-title">Card title</h5>
-	<h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-	<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-	<a href="#" class="card-link">Card link</a>
-	<a href="#" class="card-link">Another link</a>
-	</div>
-	</div>*@
-
-</div>
+<div class="display"></div>
 
 @section Scripts{
 	<script>
-
-
 		$.getScript("/js/travel.js", function () {
 			const div = $(".display");
 			let frag = $(document.createDocumentFragment());
@@ -92,8 +69,6 @@
 			}
 			div.append(frag);
 		});
-
-
 	</script>
 }
 

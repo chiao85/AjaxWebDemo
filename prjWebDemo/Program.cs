@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using prjWebDemo;
 using prjWebDemo.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 
-    builder.Services.AddDbContext<dbDemoContext>(options =>
+    builder.Services.AddDbContext<DemoContext>(options =>
     {
         options.UseSqlServer(builder.Configuration.GetConnectionString("DemoConnection"));
     });

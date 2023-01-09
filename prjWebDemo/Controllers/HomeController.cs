@@ -7,9 +7,9 @@ namespace prjWebDemo.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly dbDemoContext _context;
+        private readonly DemoContext _context;
 
-        public HomeController(ILogger<HomeController> logger, dbDemoContext context)
+        public HomeController(ILogger<HomeController> logger, DemoContext context)
         {
             _logger = logger;
             _context = context;
@@ -26,7 +26,7 @@ namespace prjWebDemo.Controllers
         }
         public ActionResult Member()
         {
-            return View(_context.TPatients);
+            return View(_context.Members);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

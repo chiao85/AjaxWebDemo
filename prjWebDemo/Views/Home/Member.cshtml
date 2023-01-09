@@ -1,4 +1,4 @@
-﻿@model IEnumerable<prjWebDemo.Models.TPatient>
+﻿@model IEnumerable<prjWebDemo.Models.Member>
 @{
     ViewData["Title"] = "Member";
 }
@@ -7,6 +7,6 @@
 <ul>
     @foreach(var m in Model)
     {
-        <li>@m.FName</li>
+        <li>@m.Name</li>
     }
 </ul>
