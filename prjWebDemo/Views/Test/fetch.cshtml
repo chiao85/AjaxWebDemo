@@ -17,9 +17,10 @@
         //    .then(data => console.log(data)).catch();
 
         async function asyncFc(){
-            const response = await fetch("@Url.Content("~/Test/Index")");
+            const response = await fetch("@Url.Content("~/Test/city")");
             const data = await response.text();
             console.log(data);
         }
+        asyncFc();
     </script>
 }

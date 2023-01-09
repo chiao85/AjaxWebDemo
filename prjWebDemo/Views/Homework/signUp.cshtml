@@ -37,7 +37,7 @@
 		let xhr = new XMLHttpRequest();
 
 		txtName.addEventListener("blur", function () {
-			console.log(msg);
+
 			xhr.addEventListener("load", function () {
 				//步驟三傳回資料
 				//接收
@@ -48,7 +48,6 @@
 			//步驟二open且send
 			xhr.open("GET", `/Homework/content/?name=${txtName.value}`)
 			xhr.send();
-
 		})
 		btn.addEventListener("click",event=>event.preventDefault());
 	</script>
