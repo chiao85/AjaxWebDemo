@@ -4,6 +4,9 @@
 }
 
 <h1>fetch</h1>
+<select id="citySel"></select>
+<select id="siteSel"></select>
+<select id="roadSel"></select>
 @section Scripts{
     <script>
         //fetch("/Test/Index").then(response => response.text()).then(data => console.log(data)).catch();
@@ -16,11 +19,41 @@
         //    response.text()})
         //    .then(data => console.log(data)).catch();
 
-        async function asyncFc(){
+        const city = document.querySelector("#citySel");
+        const site = document.querySelector("#siteSel");
+        const road = document.querySelector("#roadSel");
+        
+        async function asyncCity(){
             const response = await fetch("@Url.Content("~/Test/city")");
-            const data = await response.text();
-            console.log(data);
+
+            const datas = await response.text();
+            const cityOpts = JSON.parse(datas).map((value) => { return `<option value="${value}">${value}</option>` });
+            city.innerHTML = cityOpts.join("");
+
+            asyncSite();
+            asyncRoad();
         }
-        asyncFc();
+        async function asyncSite() {
+            const response = await fetch(`@Url.Content("~/Test/site?city=${city.options[city.selectedIndex].value}")`);
+            
+            const datas =await response.text();
+            const siteOpts = JSON.parse(datas).map((value)=>{ return `<option value=${value}>${value}</option>`});
+
+            site.innerHTML = siteOpts.join("");
+
+            asyncRoad();
+        }
+        async function asyncRoad() {
+            const response = await fetch(`@Url.Content("~/Test/road?site=${site.options[site.selectedIndex].value}")`);
+            const datas = await response.text();
+            const roadOpts = JSON.parse(datas).map((value)=>{ return `<option value="${value}">${value}</option>`});
+
+            console.log(site.options[site.selectedIndex].value);
+            road.innerHTML = roadOpts.join("");
+        }
+
+        city.addEventListener("change", () => {asyncSite();});
+        site.addEventListener("change", () => { asyncRoad(); });
+        asyncCity();
     </script>
 }
