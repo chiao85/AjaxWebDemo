@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "address";
+	ViewData["Title"] = "address";
 }
 
 <h1>address</h1>
@@ -7,61 +7,64 @@
 <select id="siteSelect"></select>
 <select id="roadSelect"></select>
 @section Scripts{
-    <script>
-        load();
-        const citySelect = document.querySelector("#citySelect");
-        const siteSelect = document.querySelector("#siteSelect");
-        const roadSelect = document.querySelector("#roadSelect");
+	<script>
+		const citySelect = document.querySelector("#citySelect");
+		const siteSelect = document.querySelector("#siteSelect");
+		const roadSelect = document.querySelector("#roadSelect");
 
+		cityLoad();
 
-        citySelect.addEventListener("change", () => {
-            //console.log(citySelect.value);
-            const xhr = new XMLHttpRequest();
-            //根據選的城市顯示鄉鎮區
-            let cityValue = citySelect.value;
-            xhr.addEventListener("load",()=>{
-                const datas = JSON.parse(xhr.responseText);
-                const siteOption = datas.map((value)=>{
-                    return  `<option value="${value}">${value}</option>`
-                })
-                siteSelect.innerHTML = siteOption;
-            })
-            xhr.open("GET",`@Url.Content("/Test/site?city=${cityValue}")`)
-            xhr.send();
+		function cityLoad() {
+			const xhr = new XMLHttpRequest();
 
-            
-        })
-siteSelect.addEventListener("change",()=>{
-            const xhr = new XMLHttpRequest();
-            //根據選的鄉鎮區顯示路名
-            let siteValue = siteSelect.value;
-            xhr.addEventListener("load", () => {
-                const datas = JSON.parse(xhr.responseText);
-                const roadOption = datas.map((value) => {
-                    return `<option value="${value}">${value}</option>`
-                })
-                roadSelect.innerHTML =roadOption;
-            })
-            xhr.open("GET", `@Url.Content("/Test/road?site=${siteValue}")`)
-            xhr.send();
-})
+			xhr.addEventListener("load", () => {
 
+				const datas = JSON.parse(xhr.responseText);
+				//console.log(datas);
+				const cityOption = datas.map((value) => {
+					return `<option value="${value}">${value}</option>`;
+				})
+				citySelect.innerHTML = cityOption.join("");
 
-        function load() {
-            const xhr = new XMLHttpRequest();
+				//載入資料時執行下列function
+				siteLoad();
+				roadLoad();
+			})
 
-            xhr.addEventListener("load", () => {
-                
+			xhr.open("GET", "@Url.Content("~/Test/city")");
+			xhr.send();
+		}
+		function siteLoad() {
+			const xhr = new XMLHttpRequest();
+			xhr.addEventListener("load", () => {
+				const datas = JSON.parse(xhr.responseText);
+				const siteOption = datas.map((value) => {
+					return `<option value=${value}>${value}</option>`;
+				})
+				siteSelect.innerHTML = siteOption.join("");
 
-                const datas = JSON.parse(xhr.responseText);
-                //console.log(datas);
-               const cityOption = datas.map((value)=>{
-                   return `<option value="${value}">${value}</option>`;
-               })
-              citySelect.innerHTML = cityOption;
-            })
-            xhr.open("GET", "@Url.Content("/Test/city")");
-            xhr.send();
-        }
-    </script>
+				roadLoad();
+			})
+
+			xhr.open("GET", `@Url.Content("~/Test/site?city=${citySelect.options[citySelect.selectedIndex].value}")`);
+			xhr.send();
+		}
+		function roadLoad() {
+			const xhr = new XMLHttpRequest();
+			xhr.addEventListener("load", () => {
+				const datas = JSON.parse(xhr.responseText);
+				const roadOption = datas.map((value) => {
+					return `<option value=${value}>${value}</option>`;
+				})
+				roadSelect.innerHTML = roadOption.join("");
+			})
+
+			xhr.open("GET", `@Url.Content("~/Test/road?site=${siteSelect.options[siteSelect.selectedIndex].value}")`);
+			xhr.send();
+		}
+
+		citySelect.addEventListener("click", () => { siteLoad(); });
+		siteSelect.addEventListener("click", () => { roadLoad(); });
+
+	</script>
 }
