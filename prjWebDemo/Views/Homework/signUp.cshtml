@@ -1,0 +1,55 @@
+﻿
+@{
+	ViewData["Title"] = "SignUp";
+}
+
+<h1>SignUp</h1>
+
+<h4>Member</h4>
+<hr />
+<div class="row">
+	<div class="col-md-4">
+		<form asp-action="SignUp" method="post" name="form">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+			<div class="form-group">
+				<label for="Name"  class="control-label"></label>
+				<input id="Name" class="form-control" name="Name" />
+				<span  class="text-danger" id="msg"></span>
+			</div>
+			<div class="form-group" style="margin-top:10px" id="click">
+				<input type="submit" value="註冊" class="btn btn-primary" id="btn"/>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<script>
+		const txtName = document.querySelector("#Name");
+		const spanMsg = document.querySelector("#msg");
+		const btn = document.querySelector("#btn");
+		//步驟一建立Ajax物件
+		let xhr = new XMLHttpRequest();
+
+		txtName.addEventListener("blur", function () {
+			console.log(msg);
+			xhr.addEventListener("load", function () {
+				//步驟三傳回資料
+				//接收
+				let msg = xhr.responseText;
+				//顯示
+				spanMsg.innerHTML = `${msg}`;
+			})
+			//步驟二open且send
+			xhr.open("GET", `/Homework/content/?name=${txtName.value}`)
+			xhr.send();
+
+		})
+		btn.addEventListener("click",event=>event.preventDefault());
+	</script>
+}
