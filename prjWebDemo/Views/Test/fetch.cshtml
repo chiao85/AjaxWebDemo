@@ -6,6 +6,20 @@
 <h1>fetch</h1>
 @section Scripts{
     <script>
-        fetch("/Test/Index").then(response=>response.text()).then(data=>console.log(data)).catch();
+        //fetch("/Test/Index").then(response => response.text()).then(data => console.log(data)).catch();
+        //fetch(`@Url.Content("~/Test/Index")`).then(response => {
+        //    if(response.ok)
+        //    {
+        //        console.log(response.headers.get("content-type"));
+        //        console.log(response.headers.get("path"));
+        //    }
+        //    response.text()})
+        //    .then(data => console.log(data)).catch();
+
+        async function asyncFc(){
+            const response = await fetch("@Url.Content("~/Test/Index")");
+            const data = await response.text();
+            console.log(data);
+        }
     </script>
 }
