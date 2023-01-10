@@ -14,25 +14,42 @@
 
 		cityLoad();
 
-		function cityLoad() {
-			const xhr = new XMLHttpRequest();
+		//async await 語法
+		async function cityLoad() {
+			//fetch
+			//fetch("@Url.Content("~/Test/city")")
+			//.then(response => response.json())
+			//.then(city => {
+			//   const cityOpts = city.map(value => `<option value="${value}">${value}</option>`)
+			//   citySelect.innerHTML = cityOpts.join("")
+			//});
 
-			xhr.addEventListener("load", () => {
+			//async await
+			const f = await fetch("@Url.Content("~/Test/city")");
+			const response = await f.json();
+			const cityOpts = response.map(value => `<option value="${value}">${value}</option>`);
+			citySelect.innerHTML = cityOpts.join("");
+			console.log(response);
 
-				const datas = JSON.parse(xhr.responseText);
-				//console.log(datas);
-				const cityOption = datas.map((value) => {
-					return `<option value="${value}">${value}</option>`;
-				})
-				citySelect.innerHTML = cityOption.join("");
+			//XmlHttpRequest語法
+			//const xhr = new XMLHttpRequest();
 
-				//載入資料時執行下列function
-				siteLoad();
-				roadLoad();
-			})
+			//xhr.addEventListener("load", () => {
 
-			xhr.open("GET", "@Url.Content("~/Test/city")");
-			xhr.send();
+			//	const datas = JSON.parse(xhr.responseText);
+			//	//console.log(datas);
+			//	const cityOption = datas.map((value) => {
+			//		return `<option value="${value}">${value}</option>`;
+			//	})
+			//	citySelect.innerHTML = cityOption.join("");
+
+			//	//載入資料時執行下列function
+			//	siteLoad();
+			//	roadLoad();
+			//})
+
+			//xhr.open("GET", "@Url.Content("~/Test/city")");
+			//xhr.send();
 		}
 		function siteLoad() {
 			const xhr = new XMLHttpRequest();
