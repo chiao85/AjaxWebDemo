@@ -19,7 +19,10 @@ namespace prjWebDemo.Controllers
         {
             return View();
         }
-
+        public ActionResult Partial()
+        {
+            return PartialView();
+        }
         public IActionResult Privacy()
         {
             return View();

@@ -10,6 +10,7 @@
 }
     <div class="text-center">
         <h1 class="display-4">Welcome</h1>
+        @Html.Partial("Partial")
         <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     </div>
     <div>
@@ -42,7 +43,7 @@
         return `<li>${name} - ${salary}</li>`;
         })
         console.log(datas);
-        getUl.innerHTML = datas;
+        getUl.innerHTML = datas.join("");
 
 
         //for(let i =0;i < emp.employees.length;i++)
