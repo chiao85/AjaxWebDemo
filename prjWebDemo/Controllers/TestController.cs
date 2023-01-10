@@ -14,16 +14,13 @@ namespace prjWebDemo.Controllers
             _host = host;
         }
 
-        public IActionResult Index(string name,string email,string address="taipei")
+        public IActionResult Index(string name,int age = 20,string address="taipei")
         {
             if(string.IsNullOrEmpty(name))
             {
                 name = "訪客";
             }
-            if (string.IsNullOrEmpty(email))
-                email = "未輸入信箱";
-
-            return Content($"Hello ,{name} !你的信箱為:{email},你的居住地在:{address}", "text/plain", Encoding.UTF8);
+            return Content($"Hello ,{name} !你的年齡為:{age},你的居住地在:{address}", "text/plain", Encoding.UTF8);
         }
         public IActionResult useMember(Member member,IFormFile file)
         {
@@ -92,6 +89,10 @@ namespace prjWebDemo.Controllers
         }
 
         public ActionResult fetch()
+        {
+            return View();
+        }
+        public ActionResult jQuery()
         {
             return View();
         }
