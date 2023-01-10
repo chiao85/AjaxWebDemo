@@ -31,7 +31,20 @@
             $('#divAlert').text("POST")
         })
         $('#buttonJson').click(function () {
-            $('#divAlert').text("JSON")
+
+            $.getJSON("@Url.Content("~/Test/site")",{"city":"宜蘭縣"},function(datas){
+                console.log(datas);
+
+                let frag = $(document.createDocumentFragment());
+                $.each(datas,function(index,site){
+                    console.log(site);
+                    const txt =$('<p></p>').text(site);
+                    frag.append(txt);
+                })
+                $('#divAlert').append(frag);
+            })
+
+            //$('#divAlert').text("JSON")
         })
         $('#buttonLoad').click(function () {
             $('#divAlert').text("LOAD")
