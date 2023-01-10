@@ -31,6 +31,8 @@
 			citySelect.innerHTML = cityOpts.join("");
 			console.log(response);
 
+			siteLoad();
+			roadLoad();
 			//XmlHttpRequest語法
 			//const xhr = new XMLHttpRequest();
 
@@ -52,19 +54,26 @@
 			//xhr.send();
 		}
 		function siteLoad() {
-			const xhr = new XMLHttpRequest();
-			xhr.addEventListener("load", () => {
-				const datas = JSON.parse(xhr.responseText);
-				const siteOption = datas.map((value) => {
-					return `<option value=${value}>${value}</option>`;
-				})
-				siteSelect.innerHTML = siteOption.join("");
-
-				roadLoad();
+			fetch(`@Url.Content("~/Test/site?city=${citySelect.options[citySelect.selectedIndex].value}")`)
+			.then(response=>response.json())
+				.then(city => {
+					const cityOpts = city.map(value => `<option value="${value}">${value}</option>`);
+					siteSelect.innerHTML = cityOpts.join("");
 			})
 
-			xhr.open("GET", `@Url.Content("~/Test/site?city=${citySelect.options[citySelect.selectedIndex].value}")`);
-			xhr.send();
+			//const xhr = new XMLHttpRequest();
+			//xhr.addEventListener("load", () => {
+			//	const datas = JSON.parse(xhr.responseText);
+			//	const siteOption = datas.map((value) => {
+			//		return `<option value=${value}>${value}</option>`;
+			//	})
+			//	siteSelect.innerHTML = siteOption.join("");
+
+			//	roadLoad();
+			//})
+
+			//xhr.open("GET", `@Url.Content("~/Test/site?city=${citySelect.options[citySelect.selectedIndex].value}")`);
+			//xhr.send();
 		}
 		function roadLoad() {
 			const xhr = new XMLHttpRequest();

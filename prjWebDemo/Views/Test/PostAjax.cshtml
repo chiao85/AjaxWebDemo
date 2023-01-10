@@ -26,19 +26,27 @@
         const btn = document.querySelector('input[type="submit"]');
 
         let xhr = new XMLHttpRequest();
-
-        btn.addEventListener("click", (event) => {
+        //標記async在funciton前方
+        btn.addEventListener("click",async (event) => {
             event.preventDefault();
             console.log("click"); 
             
-            xhr.addEventListener("load", function () {
-            div.innerHTML = xhr.responseText;
-        })
+            const formData = new FormData(document.formInfo);
+            //Request物件
+            const request = await fetch("@Url.Content("~/Test/useMember")",{
+                body:formData,
+                method:"post"
+            });
+            const data = await request.text();
+            div.innerHTML = data;
+        //    xhr.addEventListener("load", function () {
+        //    div.innerHTML = xhr.responseText;
+        //})
         
         
-            xhr.open("POST", `@Url.Content("/Test/useMember/")`);
-        let formData = new FormData(document.formInfo);
-        xhr.send(formData);
+        //    xhr.open("POST", `@Url.Content("/Test/useMember/")`);
+        //let formData = new FormData(document.formInfo);
+        //xhr.send(formData);
         })
 
        
