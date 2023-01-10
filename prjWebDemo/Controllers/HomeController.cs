@@ -21,7 +21,7 @@ namespace prjWebDemo.Controllers
         }
         public ActionResult Partial()
         {
-            return PartialView();
+            return PartialView(_context.Members);
         }
         public IActionResult Privacy()
         {

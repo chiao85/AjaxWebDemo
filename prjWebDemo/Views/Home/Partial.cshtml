@@ -1,5 +1,9 @@
-﻿
+﻿@model IEnumerable<prjWebDemo.Models.Member>
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 <h2>我是PartialView</h2>
+    @foreach(var data in Model)
+    {
+       <p>@data.Name</p>
+     }
