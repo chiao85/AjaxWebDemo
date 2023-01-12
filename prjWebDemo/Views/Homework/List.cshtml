@@ -4,7 +4,7 @@
 
 @section Styles{
 	<!-- CSS only -->
-	
+
 	<style>
 		* {
 			margin: 5px;
@@ -45,42 +45,38 @@
 	</style>
 
 }
-<h1>桃園觀光景點</h1>
+<h1 class="m-4">桃園觀光景點</h1>
+<input type="text" id="keyword" class="w-75 m-4" />
 <div class="display"></div>
 
 @section Scripts{
 	<script>
-		$.getScript("/js/travel.js", function () {
-			const div = $(".display");
-			let frag = $(document.createDocumentFragment());
-			//for (var datas of DATAS) {
-			//	let setCard = "";
+		$.getScript("/js/travel.js", function travelList(_datas) {
 
-			//	setCard += `<div class="card cardDiv">`;
-			//	setCard += `<h5 class="card-title"> ${datas.Name} </h5>`;
-			//	setCard += `<h6 class="card-subtitle mb-2 text-muted"> ${datas.Add}</h6>`;
-			//	setCard += `<div class="textDiv">`;
-			//	setCard += `<p class="text" style="max-length:50"> ${datas.Toldescribe}</p>`;
-			//	setCard += `</div>`;
-			//	setCard += `<a href = "#" class="card-link">${datas.Website} </a>`;
-			//	setCard += `<a href = "#" class="card-link">${datas.TYWebsite}</a>`;
-			//	setCard += `</div>`;
-			//	frag.append(setCard);
-			//}
-			const data = datas.map(d=>{
-				const {Name, Toldescribe, Website,Add,TYWebsite} = d;
-				frap.html(` < div class= "card cardDiv" > 
-					 < h5 class= "card-title" > ${ Name }< /h5>
-					<h6 class="card-subtitle mb-2 text-muted"> ${Add}</h6>
-					<div class="textDiv">
-					<p class="text" style="max-length:50"> ${Toldescribe}</p>
-					</div>
-					<a href = "#" class="card-link">${Website} </a>
-					<a href = "#" class="card-link">${TYWebsite}</a>
-					</div>`)
-			})
-			div.append(frag);
+			const div = $(".display");
+
+const txt = document.querySelector("#keyword");
+				txt.addEventListener("keyup", () => {
+					let result = DATAS.filter(d => d.Name.indexOf(txt.value) !== -1);
+				})
+			list(DATAS);
+				console.log(data)
+
+				function list(_datas) {
+				const { Name, Toldescribe, Website, Add, TYWebsite } = _datas;
+				return `<div class= "card cardDiv">
+							<h5 class= "card-title"> ${Name}</h5>
+							<h6 class="card-subtitle mb-2 text-muted"> ${Add}</h6>
+							 <div class="textDiv">
+							  <p class="text" style="max-length:50"> ${Toldescribe}</p>
+							 </div>
+							<a href = "#" class="card-link">${Website} </a>
+							<a href = "#" class="card-link">${TYWebsite}</a>
+						</div>`
+			}
+			div.append(data.join(""));
 		});
+
 	</script>
 }
 
