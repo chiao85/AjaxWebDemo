@@ -51,32 +51,38 @@
 
 @section Scripts{
 	<script>
-		$.getScript("/js/travel.js", function travelList(_datas) {
+		$.getScript("/js/travel.js", function () {
 
 			const div = $(".display");
+			const txt = $("#keyword");
 
-const txt = document.querySelector("#keyword");
-				txt.addEventListener("keyup", () => {
-					let result = DATAS.filter(d => d.Name.indexOf(txt.value) !== -1);
-				})
+			txt.keyup(() => {
+				let result = DATAS.filter(d => d.Name.indexOf(txt.val()) !== -1);
+				list(result);
+				console.log(txt.val())
+				console.log(result)
+			})
+
 			list(DATAS);
-				console.log(data)
-
-				function list(_datas) {
-				const { Name, Toldescribe, Website, Add, TYWebsite } = _datas;
-				return `<div class= "card cardDiv">
+			function list(_datas) {
+				const data = _datas.map(d => {
+					const { Name, Toldescribe, Website, Add, TYWebsite } = d;
+					return `<div class= "card cardDiv">
 							<h5 class= "card-title"> ${Name}</h5>
-							<h6 class="card-subtitle mb-2 text-muted"> ${Add}</h6>
-							 <div class="textDiv">
-							  <p class="text" style="max-length:50"> ${Toldescribe}</p>
-							 </div>
-							<a href = "#" class="card-link">${Website} </a>
-							<a href = "#" class="card-link">${TYWebsite}</a>
-						</div>`
+								<h6 class="card-subtitle mb-2 text-muted"> ${Add}</h6>
+									<div class="textDiv">
+										<p class="text" style="max-length:50"> ${Toldescribe}</p>
+									 </div>
+									<a href = "#" class="card-link">${Website} </a>
+									<a href = "#" class="card-link">${TYWebsite}</a>
+							</div>`
+				});
+				div.html(data.join(""));
 			}
-			div.append(data.join(""));
 		});
 
 	</script>
 }
+
+
 
